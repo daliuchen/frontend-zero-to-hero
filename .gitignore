@@ -1,0 +1,29 @@
+# Node.js 依赖
+node_modules/
+
+# 构建输出
+/dist/
+/.vitepress/dist/
+.vuepress/dist/
+
+# Mac 系统文件
+.DS_Store
+
+# 日志文件
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 临时文件
+*.swp
+*.swo
+
+# 其他常见忽略
+.env
+.env.*
+.idea/
+.vscode/
+
+# docsify 生成的缓存
+/.cache/ 
