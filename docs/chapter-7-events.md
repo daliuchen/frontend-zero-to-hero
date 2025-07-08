@@ -8,7 +8,7 @@
 
 ## 一、React 事件系统简介
 
-React 采用合成事件（SyntheticEvent）机制，对原生 DOM 事件进行了封装，保证了跨浏览器的兼容性和一致性。事件名采用小驼峰命名（如 onClick、onChange）。
+React 采用合成事件（SyntheticEvent，React 对原生 DOM 事件的封装，提供跨浏览器一致性）机制，对原生 DOM 事件进行了封装，保证了跨浏览器的兼容性和一致性。事件名采用小驼峰命名（如 onClick、onChange）。
 
 ---
 
@@ -29,9 +29,11 @@ React 采用合成事件（SyntheticEvent）机制，对原生 DOM 事件进行�
 示例：
 ```jsx
 function App() {
+  // 定义事件处理函数
   const handleClick = () => {
     alert('按钮被点击了！');
   };
+  // 通过 onClick 绑定事件
   return <button onClick={handleClick}>点我</button>;
 }
 ```
@@ -40,12 +42,16 @@ function App() {
 
 ## 四、事件对象的获取与使用
 
-事件处理函数的第一个参数为事件对象（event），可用于获取事件相关信息。
+事件处理函数的第一个参数为事件对象（event，React 的合成事件实例），可用于获取事件相关信息。
+
+事件对象 event 是 React 封装的合成事件（SyntheticEvent），它包含了当前事件的所有信息。比如 event.target.value 表示输入框当前的内容。
 
 示例：
 ```jsx
 function InputDemo() {
+  // 事件对象 event 作为参数传入
   const handleChange = (event) => {
+    // event.target.value 获取输入框的当前值
     console.log('输入内容：', event.target.value);
   };
   return <input type="text" onChange={handleChange} />;
@@ -65,9 +71,11 @@ class Demo extends React.Component {
   constructor(props) {
     super(props);
     this.state = { count: 0 };
+    // 在构造函数中绑定 this
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
+    // 通过 setState 修改 state
     this.setState({ count: this.state.count + 1 });
   }
   render() {
@@ -82,13 +90,17 @@ class Demo extends React.Component {
 
 实现一个输入框，输入内容实时显示在页面上。
 
+这种写法称为受控组件（Controlled Component，表单元素的值由 React state 控制），是 React 推荐的表单处理方式。
+
 ```jsx
 import React, { useState } from 'react';
 
 function InputShow() {
+  // useState 定义状态 value
   const [value, setValue] = useState('');
   return (
     <div>
+      {/* 受控组件，value 由 state 控制，onChange 事件更新 value */}
       <input value={value} onChange={e => setValue(e.target.value)} />
       <p>你输入的是：{value}</p>
     </div>
@@ -108,9 +120,18 @@ function InputShow() {
 
 ---
 
-## 八、总结
+## 八、进阶阅读
 
-本章介绍了 React 事件系统、常用事件类型、事件绑定、事件对象、this 指向及常见错误。掌握事件处理，是实现交互式应用的基础。
+- [React 官方文档：事件处理](https://react.dev/reference/react-dom/components/common#events)
+- [React 官方文档：合成事件（SyntheticEvent）](https://react.dev/reference/react/SyntheticEvent)
+- [React 官方文档：Supported Events（支持的事件列表）](https://react.dev/reference/react-dom/components/common#events)（包含所有支持的事件类型）
+- [React 旧版文档：事件系统与事件列表](https://legacy.reactjs.org/docs/events.html)
+
+---
+
+## 九、总结
+
+本章介绍了 React 事件系统（合成事件）、常用事件类型、事件绑定、事件对象、this 指向及常见错误。掌握事件处理，是实现交互式应用的基础能力，也是前端开发者必备技能之一。
 
 ---
 
